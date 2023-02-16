@@ -1,0 +1,12 @@
+form.user .form-control-user {
+  padding: 1.1rem 1rem;
+  border-radius: 0.6rem;
+}
+
+.custom-select {
+  height: 38.18px;
+  /* padding: 1.1rem 1rem; */
+  font-size: .8rem;
+  border-radius: .6rem;
+  
+}
