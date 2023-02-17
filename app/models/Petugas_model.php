@@ -61,6 +61,7 @@ class Petugas_model
                 ->bind('id', $data['id'])
                 ->execute();
             $this->db->commit();
+
             $rowCount += $this->db->rowCount();
             return $rowCount;
         } catch (PDOException $e) {

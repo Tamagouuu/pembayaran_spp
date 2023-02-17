@@ -170,4 +170,49 @@ class Dashboard extends Controller
             redirect('/dashboard/petugas');
         }
     }
+
+    public function siswa()
+    {
+        $data['title'] = 'Siswa';
+        $data['datatable'] = true;
+        $data['siswa'] = $this->model('Siswa_model')->getAllSiswaJoin();
+        $this->view('dashboard/siswa/index', $data);
+    }
+
+    public function createSiswa()
+    {
+        $data['title'] = 'Siswa';
+        $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
+        $data['pembayaran'] = $this->model('Pembayaran_model')->getAllPembayaran();
+        $this->view('dashboard/siswa/create', $data);
+    }
+
+    public function storeSiswa()
+    {
+        if ($this->model('Siswa_model')->addSiswa($_POST) > 0) {
+            Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
+            redirect('/dashboard/siswa');
+        } else {
+            Flasher::setFlash('Data gagal', 'ditambahkan', 'danger');
+            redirect('/dashboard/siswa');
+        }
+    }
+
+    public function deleteSiswa($id)
+    {
+        if ($this->model('Pengguna_model')->deletePengguna($id) > 0) {
+            Flasher::setFlash('Data berhasil', 'dihapus', 'success');
+            redirect('/dashboard/siswa');
+        } else {
+            Flasher::setFlash('Data gagal', 'dihapus', 'danger');
+            redirect('/dashboard/siswa');
+        }
+    }
+
+    public function editSiswa($id)
+    {
+        $data['title'] = 'Siswa';
+        $data['siswa'] = $this->model('Siswa_model')->getSiswaByID($id);
+        $this->view('dashboard/petugas/edit', $data);
+    }
 }
