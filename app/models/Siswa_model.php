@@ -20,6 +20,11 @@ class Siswa_model
         return $this->db->getAllData('siswa_join_kelas_pengguna_pembayaran');
     }
 
+    public function getSiswaByID($id)
+    {
+        return $this->db->getData('siswa_join_kelas_pengguna_pembayaran', 'id', $id);
+    }
+
     public function addSiswa($data)
     {
         try {
@@ -42,8 +47,34 @@ class Siswa_model
             $this->db->commit();
             return $this->db->rowCount();
         } catch (PDOException $e) {
-            var_dump($e->getMessage());
-            die;
+            $this->db->rollback();
+            return false;
+        }
+    }
+
+    public function updateSiswa($data)
+    {
+        try {
+            $this->db->beginTransaction();
+            $rowCount = 0;
+            $this->db->query("UPDATE pengguna SET username = :username WHERE id = :id")
+                ->bind('username', $data['username'])
+                ->bind('id', $data['pengguna_id'])
+                ->execute();
+            $rowCount += $this->db->rowCount();
+            $this->db->query("UPDATE siswa SET nisn = :nisn, nis = :nis, nama = :nama, alamat = :alamat, telepon = :telepon, kelas_id = :kelas_id, pembayaran_id = :pembayaran_id")
+                ->bind('nisn', $data['nisn'])
+                ->bind('nis', $data['nis'])
+                ->bind('nama', $data['nama'])
+                ->bind('alamat', $data['alamat'])
+                ->bind('telepon', $data['telepon'])
+                ->bind('kelas_id', $data['kelas_id'])
+                ->bind('pembayaran_id', $data['pembayaran_id'])
+                ->execute();
+            $rowCount += $this->db->rowCount();
+            $this->db->commit();
+            return $rowCount;
+        } catch (PDOException $e) {
             $this->db->rollback();
             return false;
         }

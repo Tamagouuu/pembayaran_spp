@@ -10,3 +10,19 @@ form.user .form-control-user {
   border-radius: .6rem;
   
 }
+
+.btn-bayar {
+  border-top-left-radius:0;
+  border-top-right-radius:0;
+  border-bottom-left-radius:.35rem ;
+  border-bottom-right-radius:.35rem ;
+}
+
+.border-top-primary {
+  border-top: 0.25rem solid #4e73df !important;
+}
+
+.payment-modal {
+  max-height: 400px;
+  overflow-y: auto;
+}

@@ -213,6 +213,52 @@ class Dashboard extends Controller
     {
         $data['title'] = 'Siswa';
         $data['siswa'] = $this->model('Siswa_model')->getSiswaByID($id);
-        $this->view('dashboard/petugas/edit', $data);
+        $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
+        $data['pembayaran'] = $this->model('Pembayaran_model')->getAllPembayaran();
+        $this->view('dashboard/siswa/edit', $data);
+    }
+
+    public function updateSiswa()
+    {
+        if ($this->model('Siswa_model')->updateSiswa($_POST) > 0) {
+            Flasher::setFlash('Data berhasil', 'diedit', 'success');
+            redirect('/dashboard/siswa');
+        } else {
+            Flasher::setFlash('Data gagal', 'diedit', 'danger');
+            redirect('/dashboard/siswa');
+        }
+    }
+
+    public function entryPembayaran()
+    {
+        $data['title'] = 'Entry Pembayaran';
+        $data['datatable'] = true;
+        $data['siswa'] = $this->model('Siswa_model')->getAllSiswaJoin();
+        $this->view('/dashboard/entrypembayaran/index', $data);
+    }
+
+    public function bayar($id)
+    {
+        $data['title'] = 'Entry Pembayaran';
+        $data['siswa'] = $this->model('Siswa_model')->getSiswaByID($id);
+        $data['bulan'] = [7 => 'juli', 8 => 'agustus', 9 => 'september', 10 => 'oktober', 11 => 'november', 12 => 'desember', 1 => 'januari', 2 => 'februari', 3 => 'maret', 4 => 'april', 5 => 'mei', 6 => 'juni'];
+        $this->view('/dashboard/entrypembayaran/bayar', $data);
+    }
+
+    public function processBayar($id)
+    {
+        $data = array_map(function ($j) {
+            return json_decode($j, true);
+        }, $_POST);
+
+        if ($this->model('Transaksi_model')->addTransaksi($data) > 0) {
+            echo "success";
+            // Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
+            // redirect('/dashboard/entrypembayaran');
+        } else {
+            echo "gagal";
+            // Flasher::setFlash('Data gagal', 'ditambahkan', 'danger');
+            // redirect('/dashboard/entrypembayaran');
+        }
     }
 }

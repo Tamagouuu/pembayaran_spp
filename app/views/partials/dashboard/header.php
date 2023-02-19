@@ -49,14 +49,48 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Dashboard
+                Pembayaran
             </div>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= BASEURL . '/dashboard/transportasi' ?>">
-                    <i class="fas fa-fw fa-plane"></i>
-                    <span>Transportasi</span></a>
+                <a class="nav-link" href="<?= BASEURL . '/dashboard/' ?>">
+                    <i class="fas fa-fw fa-money-bill"></i>
+                    <span>Entry Pembayaran</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <div class="sidebar-heading">
+                Kelola Data
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASEURL . '/dashboard/kelas' ?>">
+                    <i class="fas fa-fw fa-door-open"></i>
+                    <span>Kelas</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= BASEURL . '/dashboard/pembayaran' ?>">
+                    <i class="fas fa-fw fa-receipt"></i>
+                    <span>Pembayaran</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Pengguna</span>
+                </a>
+                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kelola Pengguna</h6>
+                        <a class="collapse-item" href="<?= BASEURL . '/dashboard/siswa' ?>">Siswa</a>
+                        <a class="collapse-item" href="<?= BASEURL . '/dashboard/petugas' ?>">Petugas</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
