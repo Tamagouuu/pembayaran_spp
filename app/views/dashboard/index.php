@@ -3,6 +3,14 @@
 <h2 class="h3 mb-3 text-gray-800">Howdy, <b>Admin</b></h2>
 <?= Components::headingPage('Dashboard') ?>
 
+<a href="http://localhost/pembayaran_spp/public/dashboard/createkelas" class="btn btn-primary btn-icon-split mb-4">
+    <span class="icon text-white-50">
+        <i class="fas fa-money-bill"></i>
+    </span>
+    <span class="text">Entry Pembayaran</span>
+</a>
+
+
 <!-- Content Row -->
 <div class="row">
     <a class="col-xl-3 col-md-6 mb-4 text-decoration-none" href="<?= BASEURL ?>/dashboard/kelas">
@@ -56,21 +64,6 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Siswa</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </a>
-    <a class="col-xl-3 col-md-6 mb-4 text-decoration-none" href="<?= BASEURL ?>/dashboard/entrypembayaran">
-        <div class="card border-left-primary shadow h-100 py-2">
-            <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Siswa</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
                     </div>
                     <div class="col-auto">

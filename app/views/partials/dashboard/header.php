@@ -54,7 +54,7 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= BASEURL . '/dashboard/' ?>">
+                <a class="nav-link" href="<?= BASEURL . '/dashboard/entrypembayaran' ?>">
                     <i class="fas fa-fw fa-money-bill"></i>
                     <span>Entry Pembayaran</span></a>
             </li>
