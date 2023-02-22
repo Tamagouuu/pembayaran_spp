@@ -3,6 +3,16 @@
 class Dashboard extends Controller
 {
 
+    public function __construct()
+    {
+        // if (!$_SESSION['is_logged_in']) {
+        //     redirect('/home');
+        // }
+        // if ($_SESSION['role'] != 'admin' || $_SESSION['role'] != 'petugas') {
+        //     redirect('/home');
+        // }
+    }
+
     public function index()
     {
         $data['title'] = 'Dashboard';
@@ -25,6 +35,7 @@ class Dashboard extends Controller
 
     public function storeKelas()
     {
+        preventRequest();
         if ($this->model('Kelas_model')->addKelas($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
             redirect('/dashboard/kelas');
@@ -36,6 +47,7 @@ class Dashboard extends Controller
 
     public function deleteKelas($id)
     {
+        preventRequest();
         if ($this->model('Kelas_model')->deleteKelas($id) > 0) {
             Flasher::setFlash('Data berhasil', 'dihapus', 'success');
             redirect('/dashboard/kelas');
@@ -54,6 +66,7 @@ class Dashboard extends Controller
 
     public function updateKelas()
     {
+        preventRequest();
         if ($this->model('Kelas_model')->updateKelas($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'diubah', 'success');
             redirect('/dashboard/kelas');
@@ -65,6 +78,7 @@ class Dashboard extends Controller
 
     public function pembayaran()
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Pembayaran';
         $data['datatable'] = true;
         $data['pembayaran'] = $this->model('Pembayaran_model')->getAllPembayaran();
@@ -73,12 +87,14 @@ class Dashboard extends Controller
 
     public function createPembayaran()
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Pembayaran';
         $this->view('dashboard/pembayaran/create', $data);
     }
 
     public function storePembayaran()
     {
+        Middleware::setAllowed('admin', 'POST');
         if ($this->model('Pembayaran_model')->addPembayaran($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
             redirect('/dashboard/pembayaran');
@@ -90,6 +106,7 @@ class Dashboard extends Controller
 
     public function deletePembayaran($id)
     {
+        Middleware::setAllowed('admin', 'POST');
         if ($this->model('Pembayaran_model')->deletePembayaran($id) > 0) {
             Flasher::setFlash('Data berhasil', 'dihapus', 'success');
             redirect('/dashboard/pembayaran');
@@ -101,6 +118,7 @@ class Dashboard extends Controller
 
     public function editPembayaran($id)
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Pembayaran';
         $data['pembayaran'] = $this->model('Pembayaran_model')->getPembayaranByID($id);
         $this->view('dashboard/pembayaran/edit', $data);
@@ -108,6 +126,7 @@ class Dashboard extends Controller
 
     public function updatePembayaran()
     {
+        Middleware::setAllowed('admin', 'POST');
         if ($this->model('Pembayaran_model')->updatePembayaran($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'diubah', 'success');
             redirect('/dashboard/pembayaran');
@@ -119,6 +138,7 @@ class Dashboard extends Controller
 
     public function petugas()
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Petugas';
         $data['datatable'] = true;
         $data['petugas'] = $this->model('Petugas_model')->getPetugasJoinPengguna();
@@ -127,12 +147,14 @@ class Dashboard extends Controller
 
     public function createPetugas()
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Petugas';
         $this->view('dashboard/petugas/create', $data);
     }
 
     public function storePetugas()
     {
+        Middleware::setAllowed('admin', 'POST');
         if ($this->model('Petugas_model')->addPetugas($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
             redirect('/dashboard/petugas');
@@ -144,6 +166,7 @@ class Dashboard extends Controller
 
     public function deletePetugas($id)
     {
+        Middleware::setAllowed('admin', 'POST');
         if ($this->model('Pengguna_model')->deletePengguna($id) > 0) {
             Flasher::setFlash('Data berhasil', 'dihapus', 'success');
             redirect('/dashboard/petugas');
@@ -155,6 +178,7 @@ class Dashboard extends Controller
 
     public function editPetugas($id)
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Petugas';
         $data['petugas'] = $this->model('Petugas_model')->getPetugasByID($id);
         $this->view('dashboard/petugas/edit', $data);
@@ -162,6 +186,7 @@ class Dashboard extends Controller
 
     public function updatePetugas()
     {
+        Middleware::setAllowed('admin', 'POST');
         if ($this->model('Petugas_model')->updatePetugas($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'diubah', 'success');
             redirect('/dashboard/petugas');
@@ -173,6 +198,7 @@ class Dashboard extends Controller
 
     public function siswa()
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Siswa';
         $data['datatable'] = true;
         $data['siswa'] = $this->model('Siswa_model')->getAllSiswaJoin();
@@ -181,6 +207,8 @@ class Dashboard extends Controller
 
     public function createSiswa()
     {
+        Middleware::setAllowed('admin');
+
         $data['title'] = 'Siswa';
         $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
         $data['pembayaran'] = $this->model('Pembayaran_model')->getAllPembayaran();
@@ -189,6 +217,8 @@ class Dashboard extends Controller
 
     public function storeSiswa()
     {
+        Middleware::setAllowed('admin', 'POST');
+
         if ($this->model('Siswa_model')->addSiswa($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
             redirect('/dashboard/siswa');
@@ -200,6 +230,8 @@ class Dashboard extends Controller
 
     public function deleteSiswa($id)
     {
+        Middleware::setAllowed('admin', 'POST');
+
         if ($this->model('Pengguna_model')->deletePengguna($id) > 0) {
             Flasher::setFlash('Data berhasil', 'dihapus', 'success');
             redirect('/dashboard/siswa');
@@ -211,6 +243,7 @@ class Dashboard extends Controller
 
     public function editSiswa($id)
     {
+        Middleware::setAllowed('admin');
         $data['title'] = 'Siswa';
         $data['siswa'] = $this->model('Siswa_model')->getSiswaByID($id);
         $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
@@ -220,6 +253,8 @@ class Dashboard extends Controller
 
     public function updateSiswa()
     {
+        Middleware::setAllowed('admin', 'POST');
+
         if ($this->model('Siswa_model')->updateSiswa($_POST) > 0) {
             Flasher::setFlash('Data berhasil', 'diedit', 'success');
             redirect('/dashboard/siswa');
@@ -241,7 +276,7 @@ class Dashboard extends Controller
     {
         $data['title'] = 'Entry Pembayaran';
         $data['siswa'] = $this->model('Siswa_model')->getSiswaByID($id);
-        $data['transaksi'] = $this->model('Transaksi_model')->getTransaksiByIdSiswa($id);
+        $data['transaksi'] = $this->model('Transaksi_model')->getBulanTransaksiByIdSiswa($id, $data['siswa']['pembayaran_id']);
         $data['bulan_dibayar'] = [];
         foreach ($data['transaksi'] as $t) {
             array_push($data['bulan_dibayar'], $t['bulan_dibayar']);
@@ -257,13 +292,42 @@ class Dashboard extends Controller
         }, $_POST);
 
         if ($this->model('Transaksi_model')->addTransaksi($data) > 0) {
-            echo json_encode("success");
             Flasher::setFlash('Data berhasil', 'ditambahkan', 'success');
+            echo json_encode("success");
             // redirect('/dashboard/entrypembayaran');
         } else {
-            echo json_encode("error");
             Flasher::setFlash('Data gagal', 'ditambahkan', 'danger');
+            echo json_encode("error");
             // redirect('/dashboard/entrypembayaran');
         }
+    }
+
+    public function historyPembayaran()
+    {
+        $data['title'] = 'History';
+        $data['datatable'] = true;
+        $data['siswa'] = $this->model('Siswa_model')->getAllSiswaJoin();
+        $this->view('dashboard/historypembayaran/index', $data);
+    }
+
+    public function detailHistory($id)
+    {
+        $data['title'] = 'Detail History';
+        $data['datatable'] = true;
+        $data['siswa'] = $this->model('Siswa_model')->getSiswaByID($id);
+        $data['pembayaran'] = $this->model('Transaksi_model')->getTransaksiJoin($id);
+        $data['bulan'] = [7 => 'juli', 8 => 'agustus', 9 => 'september', 10 => 'oktober', 11 => 'november', 12 => 'desember', 1 => 'januari', 2 => 'februari', 3 => 'maret', 4 => 'april', 5 => 'mei', 6 => 'juni'];
+        $data['transaksi'] = $this->model('Transaksi_model')->getBulanTransaksiByIdSiswa($id, $data['siswa']['pembayaran_id']);
+        $data['bulan_dibayar'] = [];
+        foreach ($data['transaksi'] as $t) {
+            array_push($data['bulan_dibayar'], $t['bulan_dibayar']);
+        }
+        $this->view('dashboard/historypembayaran/detail', $data);
+    }
+
+    public function generateLaporan()
+    {
+        $data['title'] = 'Generate Laporan';
+        $this->view()
     }
 }
