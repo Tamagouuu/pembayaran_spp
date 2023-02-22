@@ -2,10 +2,20 @@
 
 class Middleware
 {
-    public static function setAllowed($role)
+    public static function setAllowed($role, $request = null)
     {
-        if ($_SESSION['level'] != $role) {
-            backToPrev();
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role'] != $role) {
+                backToPrev();
+                die;
+            }
+        }
+
+        if (isset($request)) {
+            if ($_SERVER['REQUEST_METHOD'] != $request) {
+                backToPrev();
+                die;
+            }
         }
     }
 }

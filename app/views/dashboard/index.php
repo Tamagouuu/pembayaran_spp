@@ -1,13 +1,25 @@
 <?php require_once(PARTIAL_PATH . '/dashboard/header.php') ?>
 
-<h2 class="h3 mb-3 text-gray-800">Howdy, <b>Admin</b></h2>
 <?= Components::headingPage('Dashboard') ?>
+<h2 class="h3 mb-3 text-gray-800">Howdy, <b><?= $_SESSION['username'] ?></b></h2>
 
-<a href="http://localhost/pembayaran_spp/public/dashboard/createkelas" class="btn btn-primary btn-icon-split mb-4">
+<a href="http://localhost/pembayaran_spp/public/dashboard/entrypembayaran" class="btn btn-primary btn-icon-split mb-4 mr-2">
     <span class="icon text-white-50">
         <i class="fas fa-money-bill"></i>
     </span>
     <span class="text">Entry Pembayaran</span>
+</a>
+<a href="http://localhost/pembayaran_spp/public/dashboard/historypembayaran" class="btn btn-success btn-icon-split mb-4 mr-2">
+    <span class="icon text-white-50">
+        <i class="fas fa-history"></i>
+    </span>
+    <span class="text">History Pembayaran</span>
+</a>
+<a href="http://localhost/pembayaran_spp/public/dashboard/entrypembayaran" class="btn btn-info btn-icon-split mb-4 mr-2">
+    <span class="icon text-white-50">
+        <i class="fas fa-file-signature"></i>
+    </span>
+    <span class="text">Generate Laporan</span>
 </a>
 
 

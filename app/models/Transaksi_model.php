@@ -20,16 +20,31 @@ class Transaksi_model
                 ->bind('bulan_dibayar', $d['bulan'])
                 ->bind('tahun_dibayar', $d['tahun'])
                 ->bind('siswa_id', $rawData['siswa_id'])
-                ->bind('petugas_id', 10)
+                ->bind('petugas_id', 12)
                 ->bind('pembayaran_id', $rawData['pembayaran_id'])
                 ->execute();
         }
         return $this->db->rowCount();
     }
 
-    public function getTransaksiByIdSiswa($id)
+    public function getBulanTransaksiByIdSiswa($id, $pembayaran_id)
     {
-        return $this->db->query("SELECT bulan_dibayar FROM transaksi WHERE siswa_id = :id")
+        return $this->db->query("SELECT bulan_dibayar FROM transaksi WHERE siswa_id = :id AND pembayaran_id = :pembayaran_id")
+            ->bind('id', $id)
+            ->bind('pembayaran_id', $pembayaran_id)
+            ->resultSet();
+    }
+
+    public function getDetailTransaksiByIdSiswa($id)
+    {
+        return $this->db->query("SELECT * FROM transaksi WHERE siswa_id = :id")
+            ->bind('id', $id)
+            ->resultSet();
+    }
+
+    public function getTransaksiJoin($id)
+    {
+        return $this->db->query("SELECT * FROM transaksi_join_petugas_siswa_pembayaran WHERE siswa_id = :id")
             ->bind('id', $id)
             ->resultSet();
     }

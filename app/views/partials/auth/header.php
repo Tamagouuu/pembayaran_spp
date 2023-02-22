@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title><?= $data['title'] ?> | JalanKuy</title>
+    <title><?= $data['title'] ?> | BayarKuy</title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= BASEURL ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,12 +19,6 @@
     <link href="<?= BASEURL ?>/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
-
-    <?php if (isset($data['datatable'])) : ?>
-        <!-- Custom styles for this page -->
-        <link href="<?= BASEURL ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <?php endif ?>
-
 </head>
 
 <body class="bg-gradient-primary min-vh-100 d-flex justify-content-center align-items-center">

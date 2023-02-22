@@ -15,6 +15,13 @@ class Petugas_model
         return $this->db->getAllData($this->table);
     }
 
+    public function getPetugasByUsername($username)
+    {
+        return $this->db->query("SELECT * FROM petugas_join_pengguna WHERE username = :username")
+            ->bind('username', $username)
+            ->single();
+    }
+
     public function getPetugasJoinPengguna()
     {
         return $this->db->getAllData('petugas_join_pengguna');
@@ -29,6 +36,7 @@ class Petugas_model
     {
         try {
             $this->db->beginTransaction();
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             $this->db->query("INSERT INTO pengguna VALUES (NULL, :username, :password, 'petugas')")
                 ->bind('username', $data['username'])
                 ->bind('password', $data['password'])

@@ -22,6 +22,8 @@
 <!-- Logout Modal-->
 <?php require_once(PARTIAL_PATH . "/logoutmodal.php") ?>
 
+
+
 <!-- Bootstrap core JavaScript-->
 <script src="<?= BASEURL ?>/vendor/jquery/jquery.min.js"></script>
 <script src="<?= BASEURL ?>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -32,6 +34,14 @@
 <!-- Custom scripts for all pages-->
 <script src="<?= BASEURL ?>/js/sb-admin-2.min.js"></script>
 
+<?php if (isset($data['datatable'])) : ?>
+    <!-- Page level plugins -->
+    <script src="<?= BASEURL ?>/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="<?= BASEURL ?>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="<?= BASEURL ?>/js/demo/datatables-demo.js"></script>
+<?php endif ?>
 
 
 </body>

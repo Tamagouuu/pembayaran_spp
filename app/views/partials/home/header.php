@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>JalanKuy | <?= $data['title'] ?></title>
+    <title>BayarKuy | <?= $data['title'] ?></title>
 
     <!-- Custom fonts for this template-->
     <link href="<?= BASEURL ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,6 +18,11 @@
     <!-- Custom styles for this template-->
     <link href="<?= BASEURL ?>/css/sb-admin-2.min.css" rel="stylesheet">
     <link href="<?= BASEURL ?>/css/style.css" rel="stylesheet">
+
+    <?php if (isset($data['datatable'])) : ?>
+        <!-- Custom styles for this page -->
+        <link href="<?= BASEURL ?>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <?php endif ?>
 
 </head>
 
@@ -35,7 +40,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <h1 class="h3 m-0 text-primary">Jalan<span class="font-weight-bold">Kuy</span></h1>
+                    <h1 class="h3 m-0 text-primary">Bayar<span class="font-weight-bold">Kuy</span></h1>
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav align-items-center ml-auto">
 
@@ -44,7 +49,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
 
-                            <?php if (isset($_SESSION['is_loggedin'])) : ?>
+                            <?php if (isset($_SESSION['is_logged_in'])) : ?>
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username'] ?></span>
                                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">

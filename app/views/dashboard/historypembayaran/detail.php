@@ -1,8 +1,11 @@
-<?php require_once(PARTIAL_PATH . "/home/header.php") ?>
+<?php require_once(PARTIAL_PATH . '/dashboard/header.php') ?>
 
-
-<h1 class="h2 font-weight-bold">Halo, <span class="text-primary"><?= $_SESSION['username'] ?></span></h1>
-
+<div class="card d-inline-block p-3 px-4 shadow">
+    <h2 class="h3 text-primary font-weight-bold"><?= $data['siswa']['nama'] ?></h2>
+    <p class="mb-0"><small>NISN : <?= $data['siswa']['nisn'] ?></small></p>
+    <p class="mb-0"><small>Kelas : <?= $data['siswa']['nama_kelas'] ?></small></p>
+    <p class="mb-0"><small>Tahun Ajaran : <?= $data['siswa']['tahun_ajaran'] ?></small></p>
+</div>
 
 <div class="card shadow mb-4 mt-4">
     <div class="card-header py-3">
@@ -83,4 +86,5 @@
     </div>
 </div>
 
-<?php require_once(PARTIAL_PATH . "/home/footer.php") ?>
+
+<?php require_once(PARTIAL_PATH . '/dashboard/footer.php') ?>

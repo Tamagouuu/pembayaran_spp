@@ -19,3 +19,15 @@ function preventRequest()
         die;
     }
 }
+
+function formatRupiah($nominal)
+{
+    $fmt = numfmt_create('id_ID', NumberFormatter::CURRENCY);
+    return $fmt->formatCurrency($nominal, 'IDR');
+}
+
+function intToMonth($int)
+{
+    $dateObj = DateTime::createFromFormat('!m', $int);
+    return $dateObj->format('F');
+}

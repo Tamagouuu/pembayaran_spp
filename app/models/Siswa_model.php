@@ -15,6 +15,13 @@ class Siswa_model
         $this->db->getAllData('siswa');
     }
 
+    public function getSiswaByUsername($username)
+    {
+        return $this->db->query("SELECT * FROM siswa_join_kelas_pengguna_pembayaran WHERE username = :username")
+            ->bind('username', $username)
+            ->single();
+    }
+
     public function getAllSiswaJoin()
     {
         return $this->db->getAllData('siswa_join_kelas_pengguna_pembayaran');
@@ -29,6 +36,7 @@ class Siswa_model
     {
         try {
             $this->db->beginTransaction();
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             $this->db->query("INSERT INTO pengguna VALUES (NULL,:username, :password, 'siswa')")
                 ->bind('username', $data['username'])
                 ->bind('password', $data['password'])
@@ -62,7 +70,7 @@ class Siswa_model
                 ->bind('id', $data['pengguna_id'])
                 ->execute();
             $rowCount += $this->db->rowCount();
-            $this->db->query("UPDATE siswa SET nisn = :nisn, nis = :nis, nama = :nama, alamat = :alamat, telepon = :telepon, kelas_id = :kelas_id, pembayaran_id = :pembayaran_id")
+            $this->db->query("UPDATE siswa SET nisn = :nisn, nis = :nis, nama = :nama, alamat = :alamat, telepon = :telepon, kelas_id = :kelas_id, pembayaran_id = :pembayaran_id WHERE id = :id")
                 ->bind('nisn', $data['nisn'])
                 ->bind('nis', $data['nis'])
                 ->bind('nama', $data['nama'])
@@ -70,6 +78,7 @@ class Siswa_model
                 ->bind('telepon', $data['telepon'])
                 ->bind('kelas_id', $data['kelas_id'])
                 ->bind('pembayaran_id', $data['pembayaran_id'])
+                ->bind('id', $data['id'])
                 ->execute();
             $rowCount += $this->db->rowCount();
             $this->db->commit();

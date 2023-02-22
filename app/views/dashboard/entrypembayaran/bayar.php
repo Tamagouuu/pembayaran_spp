@@ -1,7 +1,7 @@
 <?php require_once(PARTIAL_PATH . '/dashboard/header.php') ?>
 
 <?php
-$fmt = numfmt_create('id_ID', NumberFormatter::CURRENCY);
+
 $tahun_bayar = explode('/', $data['siswa']['tahun_ajaran']);
 
 ?>
@@ -35,7 +35,7 @@ $tahun_bayar = explode('/', $data['siswa']['tahun_ajaran']);
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><?= $bulan ?></div>
-                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?= numfmt_format_currency($fmt, $data['siswa']['nominal'], "IDR") ?></div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800"><?= formatRupiah($data['siswa']['nominal']) ?></div>
                                 </div>
                             </div>
                         </div>
