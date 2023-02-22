@@ -60,7 +60,7 @@
                     <tbody>
                         <tr>
                             <?php foreach ($d as $e) : ?>
-
+                                <td><?= $tanggal_bayar ?></td>
                             <?php endforeach ?>
                         </tr>
                     </tbody>
