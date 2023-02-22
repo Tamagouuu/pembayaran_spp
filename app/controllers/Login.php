@@ -2,6 +2,17 @@
 
 class Login extends Controller
 {
+    public function __construct()
+    {
+        if (isset($_SESSION['is_logged_in'])) {
+            if ($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'petugas') {
+                redirect('/dashboard');
+            } else {
+                redirect('/home');
+            }
+        }
+    }
+
     public function index()
     {
         $data['title'] = 'Login';

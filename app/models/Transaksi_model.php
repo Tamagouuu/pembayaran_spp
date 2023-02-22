@@ -20,7 +20,7 @@ class Transaksi_model
                 ->bind('bulan_dibayar', $d['bulan'])
                 ->bind('tahun_dibayar', $d['tahun'])
                 ->bind('siswa_id', $rawData['siswa_id'])
-                ->bind('petugas_id', 12)
+                ->bind('petugas_id', $_SESSION['id'])
                 ->bind('pembayaran_id', $rawData['pembayaran_id'])
                 ->execute();
         }
@@ -47,5 +47,34 @@ class Transaksi_model
         return $this->db->query("SELECT * FROM transaksi_join_petugas_siswa_pembayaran WHERE siswa_id = :id")
             ->bind('id', $id)
             ->resultSet();
+    }
+
+    public function getTransaksiFilter($start, $end, $kelas, $jurusan)
+    {
+        if ($kelas == 'all' && $jurusan == 'all') {
+            return $this->db->query("SELECT * FROM transaksi_join WHERE tanggal_bayar >= :start AND tanggal_bayar <= :end")
+                ->bind('start', $start)
+                ->bind('end', $end)
+                ->resultSet();
+        } else if ($kelas == 'all' && $jurusan != 'all') {
+            return $this->db->query("SELECT * FROM transaksi_join WHERE tanggal_bayar BETWEEN :start AND :end AND kompetensi_keahlian = :jurusan")
+                ->bind('start', $start)
+                ->bind('end', $end)
+                ->bind('jurusan', $jurusan)
+                ->resultSet();
+        } else if ($jurusan == "all" && $kelas != 'all') {
+            return $this->db->query("SELECT * FROM transaksi_join WHERE tanggal_bayar BETWEEN :start AND :end AND nama_kelas = :kelas")
+                ->bind('start', $start)
+                ->bind('end', $end)
+                ->bind('kelas', $kelas)
+                ->resultSet();
+        } else {
+            return $this->db->query("SELECT * FROM transaksi_join_kelas WHERE tanggal_bayar BETWEEN :start AND :end AND nama_kelas = :kelas AND kompetensi_keahlian = :jurusan")
+                ->bind('start', $start)
+                ->bind('end', $end)
+                ->bind('kelas', $kelas)
+                ->bind('jurusan', $jurusan)
+                ->resultSet();
+        }
     }
 }

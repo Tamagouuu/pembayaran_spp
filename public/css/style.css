@@ -3,13 +3,31 @@ form.user .form-control-user {
   border-radius: 0.6rem;
 }
 
-.custom-select {
+.custom-select,
+.date {
   height: 38.18px;
   /* padding: 1.1rem 1rem; */
   font-size: .8rem;
   border-radius: .6rem;
-  
 }
+
+@media print {
+    * {
+      visibility: hidden;
+    }
+  
+    .printable {
+      visibility: visible;
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10mm;
+    }
+  
+    .printable * {
+      visibility: visible;
+    }
+  }
 
 .btn-bayar {
   border-top-left-radius:0;

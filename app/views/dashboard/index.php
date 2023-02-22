@@ -15,7 +15,7 @@
     </span>
     <span class="text">History Pembayaran</span>
 </a>
-<a href="http://localhost/pembayaran_spp/public/dashboard/entrypembayaran" class="btn btn-info btn-icon-split mb-4 mr-2">
+<a href="http://localhost/pembayaran_spp/public/dashboard/generatelaporan" class="btn btn-info btn-icon-split mb-4 mr-2">
     <span class="icon text-white-50">
         <i class="fas fa-file-signature"></i>
     </span>

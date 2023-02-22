@@ -4,8 +4,14 @@ class Home extends Controller
 {
     public function __construct()
     {
-        Middleware::setAllowed('siswa');
+        if (!$_SESSION['is_logged_in']) {
+            redirect('/login');
+        }
+        if ($_SESSION['role'] != 'siswa') {
+            redirect('/login');
+        }
     }
+
 
     public function index()
     {

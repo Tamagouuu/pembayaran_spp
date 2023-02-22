@@ -5,12 +5,15 @@ class Dashboard extends Controller
 
     public function __construct()
     {
-        // if (!$_SESSION['is_logged_in']) {
-        //     redirect('/home');
-        // }
-        // if ($_SESSION['role'] != 'admin' || $_SESSION['role'] != 'petugas') {
-        //     redirect('/home');
-        // }
+        if (!$_SESSION['is_logged_in']) {
+            redirect('/login');
+        }
+
+        if ($_SESSION['role'] != 'admin') {
+            if ($_SESSION['role'] != 'petugas') {
+                redirect('/login');
+            }
+        }
     }
 
     public function index()
@@ -325,9 +328,33 @@ class Dashboard extends Controller
         $this->view('dashboard/historypembayaran/detail', $data);
     }
 
-    public function generateLaporan()
+    public function generateLaporan($start = null, $end = null, $kelas = null, $jurusan = null)
     {
         $data['title'] = 'Generate Laporan';
-        $this->view()
+        $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
+        $data['jurusan'] = [];
+        foreach ($data['kelas'] as $k) {
+            if (!in_array($k['kompetensi_keahlian'], $data['jurusan'])) {
+                array_push($data['jurusan'], $k['kompetensi_keahlian']);
+            }
+        }
+
+        if ($start && $end) {
+            $data['sortedData'] = [];
+            $data['transaksiFiltered'] = $this->model('Transaksi_model')->getTransaksiFilter($start, $end . ' 23:59:59', $kelas, $jurusan);
+
+            // echo "<pre>";
+            // var_dump($data['transaksiFiltered']);
+            // echo "</pre>";
+            foreach ($data['transaksiFiltered'] as $d) {
+                $data['sortedData'][$d['nama'] . '|' . $d['nama_kelas'] . '|' . $d['nisn']][] = $d;
+            }
+
+            echo "<pre>";
+            var_dump($data['sortedData']);
+            echo "</pre>";
+        }
+
+        $this->view('/dashboard/laporan/index', $data);
     }
 }

@@ -12,7 +12,7 @@ $tahun_bayar = explode('/', $data['siswa']['tahun_ajaran']);
 <?php Flasher::flash() ?>
 
 
-<div class="card d-inline-block p-3 px-4 shadow">
+<div class="card d-inline-block p-3 px-4 shadow border-top-primary">
     <h2 class="h3 text-primary font-weight-bold"><?= $data['siswa']['nama'] ?></h2>
     <p class="mb-0" data-siswa="<?= $data['siswa']['id'] ?>"><small>NISN : <?= $data['siswa']['nisn'] ?></small></p>
     <p class="mb-0"><small>Kelas : <?= $data['siswa']['nama_kelas'] ?></small></p>
