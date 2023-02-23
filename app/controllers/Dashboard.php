@@ -328,9 +328,9 @@ class Dashboard extends Controller
         $this->view('dashboard/historypembayaran/detail', $data);
     }
 
-    public function generateLaporan($start = null, $end = null, $kelas = null, $jurusan = null)
+    public function laporanPembayaran($start = null, $end = null, $kelas = null, $jurusan = null)
     {
-        $data['title'] = 'Generate Laporan';
+        $data['title'] = 'Laporan Pembayaran';
         $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
         $data['jurusan'] = [];
         foreach ($data['kelas'] as $k) {
@@ -343,18 +343,41 @@ class Dashboard extends Controller
             $data['sortedData'] = [];
             $data['transaksiFiltered'] = $this->model('Transaksi_model')->getTransaksiFilter($start, $end . ' 23:59:59', $kelas, $jurusan);
 
-            // echo "<pre>";
-            // var_dump($data['transaksiFiltered']);
-            // echo "</pre>";
             foreach ($data['transaksiFiltered'] as $d) {
                 $data['sortedData'][$d['nama'] . '|' . $d['nama_kelas'] . '|' . $d['nisn']][] = $d;
             }
-
-            echo "<pre>";
-            var_dump($data['sortedData']);
-            echo "</pre>";
         }
 
-        $this->view('/dashboard/laporan/index', $data);
+        $this->view('/dashboard/laporan/pembayaran', $data);
+    }
+
+    public function laporanTagihan($kelas = null, $jurusan = null)
+    {
+        $data['title'] = 'Laporan Tagihan';
+        $data['datatable'] = true;
+        $data['bulan'] = [7 => 'juli', 8 => 'agustus', 9 => 'september', 10 => 'oktober', 11 => 'november', 12 => 'desember', 1 => 'januari', 2 => 'februari', 3 => 'maret', 4 => 'april', 5 => 'mei', 6 => 'juni'];
+
+        $data['jurusan'] = [];
+        $data['kelas'] = $this->model('Kelas_model')->getAllKelas();
+
+        foreach ($data['kelas'] as $k) {
+            if (!in_array($k['kompetensi_keahlian'], $data['jurusan'])) {
+                array_push($data['jurusan'], $k['kompetensi_keahlian']);
+            }
+        }
+
+        if ($kelas || $jurusan) {
+            $data['sortedData'] = [];
+            if ($kelas == 'all' && $jurusan == 'all') {
+                $data['allData'] = $this->model('Transaksi_model')->getAllTransaksi();
+            } else {
+                $data['allData'] = $this->model('Transaksi_model')->getTransaksiSimpleFilter($kelas, $jurusan);
+            }
+            foreach ($data['allData'] as $d) {
+                $data['sortedData'][$d['nama'] . '|' . $d['nama_kelas'] . '|' . $d['nisn']][] = $d['bulan_dibayar'];
+            }
+        }
+
+        $this->view('/dashboard/laporan/tagihan', $data);
     }
 }

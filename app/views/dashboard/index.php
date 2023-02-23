@@ -15,13 +15,18 @@
     </span>
     <span class="text">History Pembayaran</span>
 </a>
-<a href="http://localhost/pembayaran_spp/public/dashboard/generatelaporan" class="btn btn-info btn-icon-split mb-4 mr-2">
-    <span class="icon text-white-50">
-        <i class="fas fa-file-signature"></i>
-    </span>
-    <span class="text">Generate Laporan</span>
-</a>
-
+<div class="dropdown no-arrow d-inline">
+    <a class="dropdown-toggle btn btn-info btn-icon-split mb-4 mr-2" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="icon text-white-50">
+            <i class="fas fa-file-signature"></i>
+        </span>
+        <span class="text">Generate Laporan</span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="<?= BASEURL . '/dashboard/laporanpembayaran' ?>">Laporan Pembayaran</a>
+        <a class="dropdown-item" href="<?= BASEURL . '/dashboard/laporantagihan' ?>">Laporan Tagihan</a>
+    </div>
+</div>
 
 <!-- Content Row -->
 <div class="row">

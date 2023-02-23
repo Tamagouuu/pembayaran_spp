@@ -44,8 +44,14 @@ class Transaksi_model
 
     public function getTransaksiJoin($id)
     {
-        return $this->db->query("SELECT * FROM transaksi_join_petugas_siswa_pembayaran WHERE siswa_id = :id")
+        return $this->db->query("SELECT * FROM transaksi_join WHERE siswa_id = :id")
             ->bind('id', $id)
+            ->resultSet();
+    }
+
+    public function getAllTransaksi()
+    {
+        return $this->db->query("SELECT * FROM transaksi_join")
             ->resultSet();
     }
 
@@ -69,9 +75,27 @@ class Transaksi_model
                 ->bind('kelas', $kelas)
                 ->resultSet();
         } else {
-            return $this->db->query("SELECT * FROM transaksi_join_kelas WHERE tanggal_bayar BETWEEN :start AND :end AND nama_kelas = :kelas AND kompetensi_keahlian = :jurusan")
+            return $this->db->query("SELECT * FROM transaksi_join WHERE tanggal_bayar BETWEEN :start AND :end AND nama_kelas = :kelas AND kompetensi_keahlian = :jurusan")
                 ->bind('start', $start)
                 ->bind('end', $end)
+                ->bind('kelas', $kelas)
+                ->bind('jurusan', $jurusan)
+                ->resultSet();
+        }
+    }
+
+    public function getTransaksiSimpleFilter($kelas, $jurusan)
+    {
+        if ($kelas != 'all' && $jurusan == 'all') {
+            return $this->db->query("SELECT * FROM transaksi_join WHERE kompetensi_keahlian = :jurusan")
+                ->bind('jurusan', $jurusan)
+                ->resultSet();
+        } else if ($kelas == 'all' && $jurusan != 'all') {
+            return $this->db->query("SELECT * FROM transaksi_join WHERE nama_kelas = :kelas")
+                ->bind('kelas', $kelas)
+                ->resultSet();
+        } else if ($kelas != 'all' && $jurusan != 'all') {
+            return $this->db->query("SELECT * FROM transaksi_join WHERE nama_kelas = :kelas && kompetensi_keahlian = :jurusan")
                 ->bind('kelas', $kelas)
                 ->bind('jurusan', $jurusan)
                 ->resultSet();

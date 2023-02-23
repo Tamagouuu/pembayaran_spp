@@ -128,6 +128,7 @@ $tahun_bayar = explode('/', $data['siswa']['tahun_ajaran']);
         bulanBayar = bulanBayar.filter((b) => {
             return b.bulan != e.dataset.bulan
         })
+        paymentModal.querySelector(`.${getMonthName(e.dataset.bulan).toLowerCase()}`).remove()
         textTotal.innerText = f.format(totalBayar);
     }
 
@@ -174,7 +175,7 @@ $tahun_bayar = explode('/', $data['siswa']['tahun_ajaran']);
                 let data = ``;
 
                 bulanBayar.forEach((e) => {
-                    data += `<div class="card mb-2">
+                    data += `<div class="card mb-2 ${getMonthName(e.bulan).toLowerCase()}">
                     <div class="card-body p-3">
                         <div class="row no-gutters align-items-center">
                             <div class="col-9">
